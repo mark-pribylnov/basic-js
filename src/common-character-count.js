@@ -63,11 +63,11 @@ function getCommonCharacterCount(s1, s2) {
   return calcCommonChars(firstCommonChars, secondCommonChars);
 }
 
-console.log(getCommonCharacterCount("aabcc", "adcaa")); //3
-console.log(getCommonCharacterCount("abca", "xyzbac")); //3
-console.log(getCommonCharacterCount("zzzz", "zzzzzzzz")); //4
-console.log(getCommonCharacterCount("", "abc")); //0
-console.log(getCommonCharacterCount("a", "b")); //0
+// console.log(getCommonCharacterCount("aabcc", "adcaa")); //3
+// console.log(getCommonCharacterCount("abca", "xyzbac")); //3
+// console.log(getCommonCharacterCount("zzzz", "zzzzzzzz")); //4
+// console.log(getCommonCharacterCount("", "abc")); //0
+// console.log(getCommonCharacterCount("a", "b")); //0
 
 module.exports = {
   getCommonCharacterCount,
