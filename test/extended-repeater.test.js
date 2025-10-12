@@ -1127,7 +1127,11 @@ describe("Extended repeater", () => {
 
     test("correctly works with no separator & no additionSeparator", () => {
       assert.equal(
-        repeater("REPEATABLE_STRING", { repeatTimes: 2, addition: "ADDITION", additionRepeatTimes: 3 }),
+        repeater("REPEATABLE_STRING", {
+          repeatTimes: 2,
+          addition: "ADDITION",
+          additionRepeatTimes: 3,
+        }),
         "REPEATABLE_STRINGADDITION|ADDITION|ADDITION+REPEATABLE_STRINGADDITION|ADDITION|ADDITION"
       );
       assert.equal(
