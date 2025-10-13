@@ -1,23 +1,23 @@
-const { describe } = require('node:test');
-const assert = require('node:assert');
-const { test } = require('../lib');
-const { getMatrixElementsSum } = require('../src/matrix-elements-sum.js');
+const { describe } = require("node:test");
+const assert = require("node:assert");
+const { test } = require("../lib");
+const { getMatrixElementsSum } = require("../src/matrix-elements-sum.js");
 
-describe('Matrix elements sum', () => {
+describe("Matrix elements sum", () => {
   // Presence requirement
-  test('function getMatrixElementsSum exists', () => {
-    assert.strictEqual(typeof getMatrixElementsSum, 'function');
+  test("function getMatrixElementsSum exists", () => {
+    assert.strictEqual(typeof getMatrixElementsSum, "function");
   });
 
   // Functional requirements
-  test('should return the sum of the matrix elements that are not below 0', () => {
+  test("should return the sum of the matrix elements that are not below 0", () => {
     assert.strictEqual(
       getMatrixElementsSum([
         [0, 1, 1, 2],
         [0, 5, 0, 0],
         [2, 0, 3, 3],
       ]),
-      9,
+      9
     );
 
     assert.strictEqual(
@@ -26,7 +26,7 @@ describe('Matrix elements sum', () => {
         [0, 5, 0, 0],
         [2, 0, 3, 3],
       ]),
-      15,
+      15
     );
 
     assert.strictEqual(
@@ -35,7 +35,7 @@ describe('Matrix elements sum', () => {
         [2, 2, 2],
         [3, 3, 3],
       ]),
-      18,
+      18
     );
 
     assert.strictEqual(getMatrixElementsSum([[0]]), 0);
