@@ -1,19 +1,19 @@
-const { describe } = require('node:test');
-const assert = require('node:assert');
-const { test } = require('../lib');
-const { calculateHanoi } = require('../src/hanoi-tower.js');
+const { describe } = require("node:test");
+const assert = require("node:assert");
+const { test } = require("../lib");
+const { calculateHanoi } = require("../src/hanoi-tower.js");
 
-describe('Hanoi tower', () => {
+describe("Hanoi tower", () => {
   // Presence requirement
-  describe('function presence', () => {
-    test('function calculateHanoi exists', () => {
-      assert.strictEqual(typeof calculateHanoi, 'function');
+  describe("function presence", () => {
+    test("function calculateHanoi exists", () => {
+      assert.strictEqual(typeof calculateHanoi, "function");
     });
   });
 
   // Functional requirements
-  describe('base requirements', () => {
-    test('returns correct answer', () => {
+  describe("base requirements", () => {
+    test("returns correct answer", () => {
       assert.deepStrictEqual(calculateHanoi(5, 4074), { turns: 31, seconds: 27 });
       assert.deepStrictEqual(calculateHanoi(38, 4594), { turns: 274877906943, seconds: 215402800390 });
       assert.deepStrictEqual(calculateHanoi(34, 4005), { turns: 17179869183, seconds: 15442579040 });
