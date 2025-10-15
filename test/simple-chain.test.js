@@ -1,29 +1,29 @@
-const { describe } = require('node:test');
-const assert = require('node:assert');
-const { test, isThrowingExpectedErrors } = require('../lib');
+const { describe } = require("node:test");
+const assert = require("node:assert");
+const { test, isThrowingExpectedErrors } = require("../lib");
 
-const { chainMaker } = require('../src/simple-chain.js');
+const { chainMaker } = require("../src/simple-chain.js");
 
-describe('Make chain!', () => {
+describe("Make chain!", () => {
   // Presence requirement
-  describe('variable presence', () => {
-    test('object chainMaker exists', () => {
-      assert.strictEqual(typeof chainMaker, 'object');
+  describe("variable presence", () => {
+    test("object chainMaker exists", () => {
+      assert.strictEqual(typeof chainMaker, "object");
     });
   });
 
   // Functional requirements
-  describe('base requirements', () => {
-    test('chaining works!', () => {
+  describe("base requirements", () => {
+    test("chaining works!", () => {
       assert.deepStrictEqual(
         chainMaker
           .addLink(function () {})
-          .addLink('2nd')
-          .addLink('3rd')
+          .addLink("2nd")
+          .addLink("3rd")
           .removeLink(2)
           .reverseChain()
           .finishChain(),
-        '( 3rd )~~( function () {} )',
+        "( 3rd )~~( function () {} )"
       );
     });
 
@@ -32,11 +32,11 @@ describe('Make chain!', () => {
         this,
         [
           () => chainMaker.addLink(1).addLink(2).addLink(3).removeLink(0),
-          () => chainMaker.addLink(1).addLink(2).addLink(3).removeLink('2nd'),
+          () => chainMaker.addLink(1).addLink(2).addLink(3).removeLink("2nd"),
           () => chainMaker.addLink(1).addLink(2).addLink(3).removeLink(-2),
           () => chainMaker.addLink(1).addLink(2).addLink(3).removeLink(4),
         ],
-        "You can't remove incorrect link!",
+        "You can't remove incorrect link!"
       );
 
       assert.strictEqual(res, true);
@@ -44,11 +44,11 @@ describe('Make chain!', () => {
   });
 
   //Functional requirements
-  describe('functional requirements', () => {
-    test('function returns correct values', () => {
+  describe("functional requirements", () => {
+    test("function returns correct values", () => {
       assert.deepStrictEqual(
         chainMaker
-          .addLink('GHI')
+          .addLink("GHI")
           .addLink(null)
           .reverseChain()
           .addLink(333)
@@ -57,24 +57,24 @@ describe('Make chain!', () => {
           .addLink(0)
           .reverseChain()
           .reverseChain()
-          .addLink('GHI')
+          .addLink("GHI")
           .finishChain(),
-        '( null )~~( GHI )~~( 333 )~~( 0 )~~( GHI )',
+        "( null )~~( GHI )~~( 333 )~~( 0 )~~( GHI )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('8.963')
+          .addLink("8.963")
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(3.14)
-          .addLink('DEF')
+          .addLink("DEF")
           .reverseChain()
           .finishChain(),
-        '( DEF )~~( 3.14 )~~( 8.963 )~~( [object Object] )',
+        "( DEF )~~( 3.14 )~~( 8.963 )~~( [object Object] )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -82,29 +82,29 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(1.233)
           .addLink(false)
           .addLink(1)
           .reverseChain()
           .addLink(1)
           .finishChain(),
-        '( 1 )~~( false )~~( 1.233 )~~( [object Object] )~~( false )~~( 1 )',
+        "( 1 )~~( false )~~( 1.233 )~~( [object Object] )~~( false )~~( 1 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .reverseChain()
           .addLink(NaN)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(true)
           .finishChain(),
-        '( NaN )~~( [object Object] )~~( [object Object] )~~( [object Object] )~~( [object Object] )~~( true )',
+        "( NaN )~~( [object Object] )~~( [object Object] )~~( [object Object] )~~( [object Object] )~~( true )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -115,11 +115,11 @@ describe('Make chain!', () => {
           .addLink(NaN)
           .addLink(1.233)
           .addLink(null)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .finishChain(),
-        '( [object Object] )~~( null )~~( 1.233 )~~( NaN )~~( 1 )~~( 0 )~~( [object Object] )',
+        "( [object Object] )~~( null )~~( 1.233 )~~( NaN )~~( 1 )~~( 0 )~~( [object Object] )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -130,11 +130,11 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(null)
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(22)
           .addLink(333)
           .finishChain(),
-        '( null )~~( NaN )~~( null )~~( Infinity )~~( 1 )~~( [object Object] )~~( 22 )~~( 333 )',
+        "( null )~~( NaN )~~( null )~~( Infinity )~~( 1 )~~( [object Object] )~~( 22 )~~( 333 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -149,27 +149,27 @@ describe('Make chain!', () => {
           .addLink(Infinity)
           .reverseChain()
           .finishChain(),
-        '( Infinity )~~( 1 )~~( 0 )~~( 0 )~~( NaN )~~( 1 )',
+        "( Infinity )~~( 1 )~~( 0 )~~( 0 )~~( NaN )~~( 1 )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .addLink(Infinity)
           .addLink(null)
-          .addLink('8.963')
+          .addLink("8.963")
           .addLink(false)
           .addLink(Infinity)
           .reverseChain()
           .addLink(false)
           .reverseChain()
           .finishChain(),
-        '( false )~~( ABC )~~( Infinity )~~( null )~~( 8.963 )~~( false )~~( Infinity )',
+        "( false )~~( ABC )~~( Infinity )~~( null )~~( 8.963 )~~( false )~~( Infinity )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .reverseChain()
           .reverseChain()
           .reverseChain()
@@ -179,13 +179,13 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( DEF )~~( 333 )~~( null )~~( 0 )',
+        "( DEF )~~( 333 )~~( null )~~( 0 )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('DEF')
+          .addLink("DEF")
           .reverseChain()
-          .addLink('8.963')
+          .addLink("8.963")
           .reverseChain()
           .reverseChain()
           .reverseChain()
@@ -194,7 +194,7 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( 3.14 )~~( DEF )~~( 8.963 )',
+        "( 3.14 )~~( DEF )~~( 8.963 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -206,40 +206,40 @@ describe('Make chain!', () => {
           .addLink(null)
           .addLink(0)
           .addLink(3.14)
-          .addLink('8.963')
-          .addLink('GHI')
+          .addLink("8.963")
+          .addLink("GHI")
           .finishChain(),
-        '( true )~~( false )~~( null )~~( 0 )~~( 3.14 )~~( 8.963 )~~( GHI )',
+        "( true )~~( false )~~( null )~~( 0 )~~( 3.14 )~~( 8.963 )~~( GHI )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(1.233)
-          .addLink('ABC')
-          .addLink('GHI')
+          .addLink("ABC")
+          .addLink("GHI")
           .reverseChain()
           .addLink(NaN)
           .addLink(false)
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( ABC )~~( false )~~( NaN )~~( 1.233 )~~( ABC )~~( GHI )',
+        "( ABC )~~( false )~~( NaN )~~( 1.233 )~~( ABC )~~( GHI )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
-          .addLink('GHI')
+          .addLink("GHI")
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(Infinity)
           .reverseChain()
           .addLink(Infinity)
           .reverseChain()
           .finishChain(),
-        '( Infinity )~~( GHI )~~( DEF )~~( Infinity )',
+        "( Infinity )~~( GHI )~~( DEF )~~( Infinity )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -249,12 +249,12 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(0)
           .reverseChain()
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .addLink(1.233)
           .addLink(null)
           .finishChain(),
-        '( ABC )~~( NaN )~~( 333 )~~( 0 )~~( 1.233 )~~( null )',
+        "( ABC )~~( NaN )~~( 333 )~~( 0 )~~( 1.233 )~~( null )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -269,74 +269,74 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( NaN )~~( Infinity )~~( false )~~( 22 )',
+        "( NaN )~~( Infinity )~~( false )~~( 22 )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(22)
-          .addLink('ABC')
+          .addLink("ABC")
           .addLink(3.14)
           .addLink(333)
-          .addLink('8.963')
+          .addLink("8.963")
           .addLink(0)
           .addLink(1.233)
           .addLink(NaN)
           .reverseChain()
           .finishChain(),
-        '( NaN )~~( 1.233 )~~( 0 )~~( 8.963 )~~( 333 )~~( 3.14 )~~( ABC )~~( 22 )~~( DEF )',
+        "( NaN )~~( 1.233 )~~( 0 )~~( 8.963 )~~( 333 )~~( 3.14 )~~( ABC )~~( 22 )~~( DEF )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .addLink(null)
           .addLink(false)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(1)
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .finishChain(),
-        '( [object Object] )~~( 1 )~~( null )~~( false )~~( [object Object] )',
+        "( [object Object] )~~( 1 )~~( null )~~( false )~~( [object Object] )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('DEF')
+          .addLink("DEF")
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(3.14)
-          .addLink('DEF')
+          .addLink("DEF")
           .finishChain(),
-        '( DEF )~~( [object Object] )~~( 3.14 )~~( DEF )',
+        "( DEF )~~( [object Object] )~~( 3.14 )~~( DEF )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(1.233)
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(1)
           .reverseChain()
           .addLink(NaN)
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .finishChain(),
-        '( [object Object] )~~( 1 )~~( [object Object] )~~( DEF )~~( 1.233 )~~( NaN )',
+        "( [object Object] )~~( 1 )~~( [object Object] )~~( DEF )~~( 1.233 )~~( NaN )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(null)
           .reverseChain()
           .addLink(1)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(22)
           .addLink(3.14)
@@ -344,27 +344,27 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( 3.14 )~~( 22 )~~( null )~~( 1 )~~( [object Object] )',
+        "( 3.14 )~~( 22 )~~( null )~~( 1 )~~( [object Object] )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(NaN)
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( NaN )~~( [object Object] )~~( [object Object] )',
+        "( NaN )~~( [object Object] )~~( [object Object] )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(1)
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(1.233)
           .addLink(0)
           .reverseChain()
@@ -374,14 +374,14 @@ describe('Make chain!', () => {
           .addLink(NaN)
           .reverseChain()
           .finishChain(),
-        '( NaN )~~( 0 )~~( 1.233 )~~( DEF )~~( 1 )',
+        "( NaN )~~( 0 )~~( 1.233 )~~( DEF )~~( 1 )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('8.963')
-          .addLink('GHI')
+          .addLink("8.963")
+          .addLink("GHI")
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .reverseChain()
           .addLink(NaN)
@@ -389,12 +389,12 @@ describe('Make chain!', () => {
           .addLink(1.233)
           .addLink(333)
           .finishChain(),
-        '( NaN )~~( [object Object] )~~( 8.963 )~~( GHI )~~( 1.233 )~~( 333 )',
+        "( NaN )~~( [object Object] )~~( 8.963 )~~( GHI )~~( 1.233 )~~( 333 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(true)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(false)
           .reverseChain()
           .addLink(Infinity)
@@ -402,14 +402,14 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(3.14)
           .reverseChain()
-          .addLink('GHI')
+          .addLink("GHI")
           .finishChain(),
-        '( 3.14 )~~( false )~~( [object Object] )~~( true )~~( Infinity )~~( 1.233 )~~( GHI )',
+        "( 3.14 )~~( false )~~( [object Object] )~~( true )~~( Infinity )~~( 1.233 )~~( GHI )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
-          .addLink('GHI')
+          .addLink("GHI")
           .addLink(NaN)
           .reverseChain()
           .reverseChain()
@@ -419,7 +419,7 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(333)
           .finishChain(),
-        '( GHI )~~( NaN )~~( false )~~( 3.14 )~~( 333 )',
+        "( GHI )~~( NaN )~~( false )~~( 3.14 )~~( 333 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -428,18 +428,18 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(Infinity)
-          .addLink('8.963')
+          .addLink("8.963")
           .finishChain(),
-        '( DEF )~~( null )~~( DEF )~~( Infinity )~~( 8.963 )',
+        "( DEF )~~( null )~~( DEF )~~( Infinity )~~( 8.963 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .reverseChain()
           .reverseChain()
           .reverseChain()
@@ -449,7 +449,7 @@ describe('Make chain!', () => {
           .addLink(Infinity)
           .addLink(Infinity)
           .finishChain(),
-        '( 0 )~~( DEF )~~( Infinity )~~( Infinity )',
+        "( 0 )~~( DEF )~~( Infinity )~~( Infinity )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -464,11 +464,11 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( NaN )~~( null )~~( 1.233 )',
+        "( NaN )~~( null )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .reverseChain()
           .reverseChain()
@@ -479,13 +479,13 @@ describe('Make chain!', () => {
           .addLink(22)
           .reverseChain()
           .finishChain(),
-        '( 22 )~~( null )~~( 1 )~~( [object Object] )',
+        "( 22 )~~( null )~~( 1 )~~( [object Object] )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(0)
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(1)
           .addLink(1)
           .reverseChain()
@@ -494,22 +494,22 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( 0 )~~( DEF )~~( 1 )~~( 1 )~~( 1.233 )',
+        "( 0 )~~( DEF )~~( 1 )~~( 1 )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(1)
-          .addLink('8.963')
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink("8.963")
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .finishChain(),
-        '( [object Object] )~~( [object Object] )~~( 1 )~~( 8.963 )~~( [object Object] )',
+        "( [object Object] )~~( [object Object] )~~( 1 )~~( 8.963 )~~( [object Object] )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -524,7 +524,7 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(NaN)
           .finishChain(),
-        '( null )~~( 3.14 )~~( 22 )~~( NaN )~~( NaN )',
+        "( null )~~( 3.14 )~~( 22 )~~( NaN )~~( NaN )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -532,29 +532,29 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .addLink(false)
-          .addLink('GHI')
-          .addLink(true)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(1.233)
-          .finishChain(),
-        '( true )~~( GHI )~~( false )~~( 0 )~~( 1.233 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink('GHI')
-          .reverseChain()
+          .addLink("GHI")
           .addLink(true)
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .addLink(1.233)
+          .finishChain(),
+        "( true )~~( GHI )~~( false )~~( 0 )~~( 1.233 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink("GHI")
+          .reverseChain()
+          .addLink(true)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(1.233)
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( true )~~( [object Object] )~~( GHI )~~( 1.233 )',
+        "( true )~~( [object Object] )~~( GHI )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -564,19 +564,19 @@ describe('Make chain!', () => {
           .addLink(3.14)
           .reverseChain()
           .reverseChain()
-          .addLink('ABC')
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink("ABC")
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(3.14)
           .finishChain(),
-        '( [object Object] )~~( ABC )~~( 3.14 )~~( 1 )~~( 3.14 )',
+        "( [object Object] )~~( ABC )~~( 3.14 )~~( 1 )~~( 3.14 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .addLink(1.233)
           .addLink(22)
-          .addLink('DEF')
+          .addLink("DEF")
           .reverseChain()
           .addLink(1.233)
           .addLink(333)
@@ -584,67 +584,67 @@ describe('Make chain!', () => {
           .addLink(1)
           .addLink(333)
           .finishChain(),
-        '( DEF )~~( 22 )~~( 1.233 )~~( 1.233 )~~( 333 )~~( true )~~( 1 )~~( 333 )',
+        "( DEF )~~( 22 )~~( 1.233 )~~( 1.233 )~~( 333 )~~( true )~~( 1 )~~( 333 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(0)
-          .addLink('GHI')
+          .addLink("GHI")
           .reverseChain()
           .reverseChain()
           .addLink(Infinity)
-          .addLink('8.963')
+          .addLink("8.963")
           .finishChain(),
-        '( [object Object] )~~( 0 )~~( GHI )~~( Infinity )~~( 8.963 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink(3.14)
-          .addLink(Infinity)
-          .addLink(Infinity)
-          .addLink(333)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(null)
-          .reverseChain()
-          .addLink(22)
-          .finishChain(),
-        '( null )~~( 3.14 )~~( Infinity )~~( Infinity )~~( 333 )~~( 22 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink('GHI')
-          .reverseChain()
-          .addLink(true)
-          .addLink(false)
-          .addLink(null)
-          .addLink('DEF')
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .finishChain(),
-        '( DEF )~~( null )~~( false )~~( true )~~( GHI )',
+        "( [object Object] )~~( 0 )~~( GHI )~~( Infinity )~~( 8.963 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(3.14)
+          .addLink(Infinity)
+          .addLink(Infinity)
+          .addLink(333)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(null)
+          .reverseChain()
+          .addLink(22)
+          .finishChain(),
+        "( null )~~( 3.14 )~~( Infinity )~~( Infinity )~~( 333 )~~( 22 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink("GHI")
+          .reverseChain()
+          .addLink(true)
+          .addLink(false)
+          .addLink(null)
+          .addLink("DEF")
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .finishChain(),
+        "( DEF )~~( null )~~( false )~~( true )~~( GHI )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink(3.14)
           .addLink(1)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink('DEF')
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink("DEF")
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(true)
           .addLink(false)
           .addLink(333)
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( 3.14 )~~( 1 )~~( [object Object] )~~( DEF )~~( [object Object] )~~( true )~~( false )~~( 333 )',
+        "( 3.14 )~~( 1 )~~( [object Object] )~~( DEF )~~( [object Object] )~~( true )~~( false )~~( 333 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -655,71 +655,71 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .addLink(NaN)
-          .addLink('8.963')
+          .addLink("8.963")
           .addLink(333)
           .addLink(333)
           .finishChain(),
-        '( NaN )~~( null )~~( NaN )~~( 8.963 )~~( 333 )~~( 333 )',
+        "( NaN )~~( null )~~( NaN )~~( 8.963 )~~( 333 )~~( 333 )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('GHI')
+          .addLink("GHI")
           .reverseChain()
           .reverseChain()
-          .addLink('8.963')
+          .addLink("8.963")
           .addLink(false)
           .addLink(NaN)
           .reverseChain()
           .addLink(22)
-          .addLink('GHI')
+          .addLink("GHI")
           .addLink(false)
           .finishChain(),
-        '( NaN )~~( false )~~( 8.963 )~~( GHI )~~( 22 )~~( GHI )~~( false )',
+        "( NaN )~~( false )~~( 8.963 )~~( GHI )~~( 22 )~~( GHI )~~( false )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(22)
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .reverseChain()
           .addLink(NaN)
           .reverseChain()
           .addLink(333)
           .addLink(22)
-          .addLink('GHI')
+          .addLink("GHI")
           .addLink(Infinity)
           .finishChain(),
-        '( NaN )~~( ABC )~~( 22 )~~( 333 )~~( 22 )~~( GHI )~~( Infinity )',
+        "( NaN )~~( ABC )~~( 22 )~~( 333 )~~( 22 )~~( GHI )~~( Infinity )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(22)
           .addLink(NaN)
-          .addLink('8.963')
+          .addLink("8.963")
           .addLink(1.233)
           .addLink(NaN)
           .reverseChain()
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .addLink(3.14)
           .finishChain(),
-        '( ABC )~~( [object Object] )~~( 22 )~~( NaN )~~( 8.963 )~~( 1.233 )~~( NaN )~~( 3.14 )',
+        "( ABC )~~( [object Object] )~~( 22 )~~( NaN )~~( 8.963 )~~( 1.233 )~~( NaN )~~( 3.14 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(333)
           .reverseChain()
           .reverseChain()
-          .addLink('ABC')
-          .addLink('8.963')
+          .addLink("ABC")
+          .addLink("8.963")
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(false)
-          .addLink('ABC')
+          .addLink("ABC")
           .finishChain(),
-        '( [object Object] )~~( 333 )~~( ABC )~~( 8.963 )~~( false )~~( ABC )',
+        "( [object Object] )~~( 333 )~~( ABC )~~( 8.963 )~~( false )~~( ABC )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -734,7 +734,7 @@ describe('Make chain!', () => {
           .addLink(null)
           .reverseChain()
           .finishChain(),
-        '( null )~~( false )',
+        "( null )~~( false )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -742,44 +742,44 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .addLink(0)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .reverseChain()
           .addLink(true)
           .addLink(NaN)
           .reverseChain()
           .finishChain(),
-        '( NaN )~~( true )~~( [object Object] )~~( 0 )',
+        "( NaN )~~( true )~~( [object Object] )~~( 0 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .addLink(NaN)
           .addLink(false)
           .reverseChain()
-          .addLink('ABC')
+          .addLink("ABC")
           .addLink(false)
           .reverseChain()
           .addLink(1.233)
           .finishChain(),
-        '( false )~~( ABC )~~( ABC )~~( NaN )~~( false )~~( 1.233 )',
+        "( false )~~( ABC )~~( ABC )~~( NaN )~~( false )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(0)
           .addLink(22)
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .reverseChain()
           .addLink(Infinity)
           .reverseChain()
-          .addLink('8.963')
+          .addLink("8.963")
           .addLink(0)
-          .addLink('ABC')
+          .addLink("ABC")
           .finishChain(),
-        '( Infinity )~~( ABC )~~( 22 )~~( 0 )~~( 8.963 )~~( 0 )~~( ABC )',
+        "( Infinity )~~( ABC )~~( 22 )~~( 0 )~~( 8.963 )~~( 0 )~~( ABC )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -794,37 +794,37 @@ describe('Make chain!', () => {
           .addLink(22)
           .reverseChain()
           .finishChain(),
-        '( 22 )~~( true )~~( Infinity )~~( 333 )~~( 1 )~~( NaN )~~( 1.233 )',
+        "( 22 )~~( true )~~( Infinity )~~( 333 )~~( 1 )~~( NaN )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
-          .addLink('8.963')
+          .addLink("8.963")
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .finishChain(),
-        '( [object Object] )~~( 8.963 )',
+        "( [object Object] )~~( 8.963 )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .reverseChain()
-          .addLink('DEF')
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink("DEF")
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(1.233)
           .addLink(1.233)
           .reverseChain()
-          .addLink('ABC')
+          .addLink("ABC")
           .finishChain(),
-        '( 1.233 )~~( 1.233 )~~( ABC )~~( DEF )~~( [object Object] )~~( ABC )',
+        "( 1.233 )~~( 1.233 )~~( ABC )~~( DEF )~~( [object Object] )~~( ABC )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -833,43 +833,43 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(0)
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(1)
           .finishChain(),
-        '( 0 )~~( DEF )~~( [object Object] )~~( 1 )',
+        "( 0 )~~( DEF )~~( [object Object] )~~( 1 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(1)
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(false)
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink('GHI')
+          .addLink("GHI")
           .reverseChain()
           .finishChain(),
-        '( GHI )~~( 1 )~~( [object Object] )~~( false )',
+        "( GHI )~~( 1 )~~( [object Object] )~~( false )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(333)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( [object Object] )~~( 333 )~~( DEF )',
+        "( [object Object] )~~( 333 )~~( DEF )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -877,14 +877,14 @@ describe('Make chain!', () => {
           .addLink(333)
           .reverseChain()
           .addLink(Infinity)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(true)
           .addLink(true)
           .addLink(22)
           .addLink(333)
           .finishChain(),
-        '( [object Object] )~~( Infinity )~~( 333 )~~( true )~~( true )~~( 22 )~~( 333 )',
+        "( [object Object] )~~( Infinity )~~( 333 )~~( true )~~( true )~~( 22 )~~( 333 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -899,7 +899,7 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(null)
           .finishChain(),
-        '( NaN )~~( 333 )~~( NaN )~~( null )',
+        "( NaN )~~( 333 )~~( NaN )~~( null )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -914,7 +914,7 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( 22 )~~( NaN )',
+        "( 22 )~~( NaN )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -925,431 +925,41 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .finishChain(),
-        '( [object Object] )~~( 22 )~~( false )~~( null )~~( DEF )',
+        "( [object Object] )~~( 22 )~~( false )~~( null )~~( DEF )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink('GHI')
+          .addLink("GHI")
           .reverseChain()
           .addLink(false)
-          .addLink('8.963')
+          .addLink("8.963")
           .addLink(1.233)
-          .addLink('8.963')
+          .addLink("8.963")
           .reverseChain()
           .finishChain(),
-        '( 8.963 )~~( 1.233 )~~( 8.963 )~~( false )~~( GHI )',
+        "( 8.963 )~~( 1.233 )~~( 8.963 )~~( false )~~( GHI )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(1.233)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .reverseChain()
-          .addLink('8.963')
+          .addLink("8.963")
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(3.14)
           .reverseChain()
           .finishChain(),
-        '( 3.14 )~~( [object Object] )~~( 8.963 )~~( [object Object] )~~( 1.233 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink(3.14)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(1)
-          .addLink(0)
-          .finishChain(),
-        '( 3.14 )~~( 1 )~~( 0 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink(333)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .reverseChain()
-          .addLink(333)
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink(Infinity)
-          .reverseChain()
-          .reverseChain()
-          .finishChain(),
-        '( 333 )~~( 333 )~~( [object Object] )~~( [object Object] )~~( Infinity )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink(1.233)
-          .addLink(22)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(22)
-          .reverseChain()
-          .finishChain(),
-        '( 22 )~~( 1.233 )~~( 22 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink(NaN)
-          .addLink(1.233)
-          .reverseChain()
-          .addLink(Infinity)
-          .addLink(NaN)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(333)
-          .addLink('ABC')
-          .finishChain(),
-        '( NaN )~~( Infinity )~~( NaN )~~( 1.233 )~~( 333 )~~( ABC )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink(22)
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink('ABC')
-          .reverseChain()
-          .addLink(0)
-          .addLink('ABC')
-          .reverseChain()
-          .addLink('8.963')
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .finishChain(),
-        '( ABC )~~( 0 )~~( 22 )~~( [object Object] )~~( ABC )~~( 8.963 )~~( [object Object] )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink(1)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink(Infinity)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .finishChain(),
-        '( 1 )~~( [object Object] )~~( Infinity )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .reverseChain()
-          .addLink(Infinity)
-          .reverseChain()
-          .addLink(3.14)
-          .addLink(null)
-          .addLink(false)
-          .addLink(1)
-          .addLink(NaN)
-          .reverseChain()
-          .finishChain(),
-        '( NaN )~~( 1 )~~( false )~~( null )~~( 3.14 )~~( Infinity )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink(333)
-          .reverseChain()
-          .reverseChain()
-          .addLink(333)
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink(null)
-          .reverseChain()
-          .reverseChain()
-          .finishChain(),
-        '( 333 )~~( 333 )~~( [object Object] )~~( null )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(333)
-          .reverseChain()
-          .addLink(22)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink('DEF')
-          .finishChain(),
-        '( [object Object] )~~( 22 )~~( 333 )~~( [object Object] )~~( DEF )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink(1.233)
-          .addLink(333)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink('GHI')
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink(null)
-          .finishChain(),
-        '( GHI )~~( 333 )~~( 1.233 )~~( [object Object] )~~( null )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .reverseChain()
-          .addLink(0)
-          .addLink(true)
-          .addLink(false)
-          .reverseChain()
-          .addLink('DEF')
-          .reverseChain()
-          .addLink(1)
-          .finishChain(),
-        '( DEF )~~( [object Object] )~~( 0 )~~( true )~~( false )~~( 1 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink(null)
-          .reverseChain()
-          .addLink('ABC')
-          .reverseChain()
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(true)
-          .finishChain(),
-        '( [object Object] )~~( ABC )~~( null )~~( true )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink('DEF')
-          .addLink(0)
-          .reverseChain()
-          .addLink(true)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink(1)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink(Infinity)
-          .addLink(22)
-          .addLink(1.233)
-          .finishChain(),
-        '( 0 )~~( DEF )~~( true )~~( [object Object] )~~( 1 )~~( [object Object] )~~( Infinity )~~( 22 )~~( 1.233 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink('ABC')
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(Infinity)
-          .addLink(false)
-          .addLink(0)
-          .addLink('8.963')
-          .reverseChain()
-          .finishChain(),
-        '( 8.963 )~~( 0 )~~( false )~~( Infinity )~~( ABC )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(1.233)
-          .addLink('DEF')
-          .addLink(true)
-          .addLink('DEF')
-          .reverseChain()
-          .reverseChain()
-          .addLink(NaN)
-          .finishChain(),
-        '( 1.233 )~~( DEF )~~( true )~~( DEF )~~( NaN )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink(null)
-          .reverseChain()
-          .reverseChain()
-          .addLink(null)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(1)
-          .reverseChain()
-          .addLink(null)
-          .finishChain(),
-        '( 1 )~~( null )~~( null )~~( null )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink(Infinity)
-          .reverseChain()
-          .addLink(false)
-          .reverseChain()
-          .addLink(NaN)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(333)
-          .finishChain(),
-        '( false )~~( Infinity )~~( NaN )~~( 333 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink(0)
-          .addLink(1.233)
-          .addLink('GHI')
-          .addLink(0)
-          .addLink(333)
-          .addLink('DEF')
-          .addLink(NaN)
-          .reverseChain()
-          .addLink(true)
-          .addLink(3.14)
-          .finishChain(),
-        '( NaN )~~( DEF )~~( 333 )~~( 0 )~~( GHI )~~( 1.233 )~~( 0 )~~( true )~~( 3.14 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink('ABC')
-          .reverseChain()
-          .addLink('GHI')
-          .reverseChain()
-          .addLink(Infinity)
-          .reverseChain()
-          .addLink(22)
-          .finishChain(),
-        '( Infinity )~~( ABC )~~( GHI )~~( 22 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink('ABC')
-          .reverseChain()
-          .addLink(NaN)
-          .addLink('DEF')
-          .reverseChain()
-          .reverseChain()
-          .addLink(NaN)
-          .reverseChain()
-          .addLink(false)
-          .addLink('GHI')
-          .finishChain(),
-        '( NaN )~~( DEF )~~( NaN )~~( ABC )~~( false )~~( GHI )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .reverseChain()
-          .addLink(NaN)
-          .reverseChain()
-          .reverseChain()
-          .finishChain(),
-        '( [object Object] )~~( [object Object] )~~( NaN )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink(22)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .reverseChain()
-          .reverseChain()
-          .addLink(333)
-          .reverseChain()
-          .addLink(null)
-          .reverseChain()
-          .addLink(null)
-          .finishChain(),
-        '( null )~~( [object Object] )~~( 22 )~~( [object Object] )~~( 333 )~~( null )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink(3.14)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink('DEF')
-          .addLink('DEF')
-          .addLink('GHI')
-          .reverseChain()
-          .addLink('ABC')
-          .reverseChain()
-          .addLink(0)
-          .finishChain(),
-        '( ABC )~~( 3.14 )~~( [object Object] )~~( DEF )~~( DEF )~~( GHI )~~( 0 )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .addLink('DEF')
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .reverseChain()
-          .addLink(0)
-          .addLink(false)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .finishChain(),
-        '( [object Object] )~~( [object Object] )~~( false )~~( 0 )~~( DEF )~~( [object Object] )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
-          .addLink(false)
-          .reverseChain()
-          .reverseChain()
-          .reverseChain()
-          .addLink(333)
-          .addLink(1)
-          .reverseChain()
-          .finishChain(),
-        '( 1 )~~( 333 )~~( [object Object] )~~( [object Object] )~~( false )',
-      );
-      assert.deepStrictEqual(
-        chainMaker
-          .reverseChain()
-          .reverseChain()
-          .addLink(1)
-          .addLink(22)
-          .reverseChain()
-          .addLink(true)
-          .reverseChain()
-          .addLink(333)
-          .reverseChain()
-          .reverseChain()
-          .finishChain(),
-        '( true )~~( 1 )~~( 22 )~~( 333 )',
+        "( 3.14 )~~( [object Object] )~~( 8.963 )~~( [object Object] )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1357,14 +967,404 @@ describe('Make chain!', () => {
           .addLink(3.14)
           .reverseChain()
           .reverseChain()
-          .addLink('8.963')
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(1)
+          .addLink(0)
+          .finishChain(),
+        "( 3.14 )~~( 1 )~~( 0 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink(333)
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .reverseChain()
+          .addLink(333)
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink(Infinity)
+          .reverseChain()
+          .reverseChain()
+          .finishChain(),
+        "( 333 )~~( 333 )~~( [object Object] )~~( [object Object] )~~( Infinity )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink(1.233)
+          .addLink(22)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(22)
+          .reverseChain()
+          .finishChain(),
+        "( 22 )~~( 1.233 )~~( 22 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink(NaN)
+          .addLink(1.233)
+          .reverseChain()
+          .addLink(Infinity)
+          .addLink(NaN)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(333)
+          .addLink("ABC")
+          .finishChain(),
+        "( NaN )~~( Infinity )~~( NaN )~~( 1.233 )~~( 333 )~~( ABC )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink(22)
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink("ABC")
+          .reverseChain()
+          .addLink(0)
+          .addLink("ABC")
+          .reverseChain()
+          .addLink("8.963")
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .finishChain(),
+        "( ABC )~~( 0 )~~( 22 )~~( [object Object] )~~( ABC )~~( 8.963 )~~( [object Object] )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink(1)
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink(Infinity)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .finishChain(),
+        "( 1 )~~( [object Object] )~~( Infinity )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .reverseChain()
+          .addLink(Infinity)
+          .reverseChain()
+          .addLink(3.14)
+          .addLink(null)
+          .addLink(false)
+          .addLink(1)
+          .addLink(NaN)
+          .reverseChain()
+          .finishChain(),
+        "( NaN )~~( 1 )~~( false )~~( null )~~( 3.14 )~~( Infinity )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink(333)
+          .reverseChain()
+          .reverseChain()
+          .addLink(333)
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink(null)
+          .reverseChain()
+          .reverseChain()
+          .finishChain(),
+        "( 333 )~~( 333 )~~( [object Object] )~~( null )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(333)
+          .reverseChain()
+          .addLink(22)
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink("DEF")
+          .finishChain(),
+        "( [object Object] )~~( 22 )~~( 333 )~~( [object Object] )~~( DEF )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink(1.233)
+          .addLink(333)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink("GHI")
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink(null)
+          .finishChain(),
+        "( GHI )~~( 333 )~~( 1.233 )~~( [object Object] )~~( null )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .reverseChain()
+          .addLink(0)
+          .addLink(true)
+          .addLink(false)
+          .reverseChain()
+          .addLink("DEF")
+          .reverseChain()
+          .addLink(1)
+          .finishChain(),
+        "( DEF )~~( [object Object] )~~( 0 )~~( true )~~( false )~~( 1 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink(null)
+          .reverseChain()
+          .addLink("ABC")
+          .reverseChain()
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(true)
+          .finishChain(),
+        "( [object Object] )~~( ABC )~~( null )~~( true )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink("DEF")
+          .addLink(0)
+          .reverseChain()
+          .addLink(true)
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink(1)
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink(Infinity)
+          .addLink(22)
+          .addLink(1.233)
+          .finishChain(),
+        "( 0 )~~( DEF )~~( true )~~( [object Object] )~~( 1 )~~( [object Object] )~~( Infinity )~~( 22 )~~( 1.233 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink("ABC")
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(Infinity)
+          .addLink(false)
+          .addLink(0)
+          .addLink("8.963")
+          .reverseChain()
+          .finishChain(),
+        "( 8.963 )~~( 0 )~~( false )~~( Infinity )~~( ABC )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(1.233)
+          .addLink("DEF")
+          .addLink(true)
+          .addLink("DEF")
+          .reverseChain()
+          .reverseChain()
+          .addLink(NaN)
+          .finishChain(),
+        "( 1.233 )~~( DEF )~~( true )~~( DEF )~~( NaN )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink(null)
+          .reverseChain()
+          .reverseChain()
+          .addLink(null)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(1)
+          .reverseChain()
+          .addLink(null)
+          .finishChain(),
+        "( 1 )~~( null )~~( null )~~( null )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink(Infinity)
+          .reverseChain()
+          .addLink(false)
+          .reverseChain()
+          .addLink(NaN)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(333)
+          .finishChain(),
+        "( false )~~( Infinity )~~( NaN )~~( 333 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink(0)
+          .addLink(1.233)
+          .addLink("GHI")
+          .addLink(0)
+          .addLink(333)
+          .addLink("DEF")
+          .addLink(NaN)
+          .reverseChain()
+          .addLink(true)
+          .addLink(3.14)
+          .finishChain(),
+        "( NaN )~~( DEF )~~( 333 )~~( 0 )~~( GHI )~~( 1.233 )~~( 0 )~~( true )~~( 3.14 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink("ABC")
+          .reverseChain()
+          .addLink("GHI")
+          .reverseChain()
+          .addLink(Infinity)
+          .reverseChain()
+          .addLink(22)
+          .finishChain(),
+        "( Infinity )~~( ABC )~~( GHI )~~( 22 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink("ABC")
+          .reverseChain()
+          .addLink(NaN)
+          .addLink("DEF")
+          .reverseChain()
+          .reverseChain()
+          .addLink(NaN)
+          .reverseChain()
+          .addLink(false)
+          .addLink("GHI")
+          .finishChain(),
+        "( NaN )~~( DEF )~~( NaN )~~( ABC )~~( false )~~( GHI )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .reverseChain()
+          .addLink(NaN)
+          .reverseChain()
+          .reverseChain()
+          .finishChain(),
+        "( [object Object] )~~( [object Object] )~~( NaN )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink(22)
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .reverseChain()
+          .reverseChain()
+          .addLink(333)
+          .reverseChain()
+          .addLink(null)
+          .reverseChain()
+          .addLink(null)
+          .finishChain(),
+        "( null )~~( [object Object] )~~( 22 )~~( [object Object] )~~( 333 )~~( null )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink(3.14)
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink("DEF")
+          .addLink("DEF")
+          .addLink("GHI")
+          .reverseChain()
+          .addLink("ABC")
+          .reverseChain()
+          .addLink(0)
+          .finishChain(),
+        "( ABC )~~( 3.14 )~~( [object Object] )~~( DEF )~~( DEF )~~( GHI )~~( 0 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .addLink("DEF")
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .reverseChain()
+          .addLink(0)
+          .addLink(false)
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .finishChain(),
+        "( [object Object] )~~( [object Object] )~~( false )~~( 0 )~~( DEF )~~( [object Object] )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
+          .addLink(false)
+          .reverseChain()
+          .reverseChain()
+          .reverseChain()
+          .addLink(333)
+          .addLink(1)
+          .reverseChain()
+          .finishChain(),
+        "( 1 )~~( 333 )~~( [object Object] )~~( [object Object] )~~( false )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .reverseChain()
+          .addLink(1)
+          .addLink(22)
+          .reverseChain()
+          .addLink(true)
+          .reverseChain()
+          .addLink(333)
+          .reverseChain()
+          .reverseChain()
+          .finishChain(),
+        "( true )~~( 1 )~~( 22 )~~( 333 )"
+      );
+      assert.deepStrictEqual(
+        chainMaker
+          .reverseChain()
+          .addLink(3.14)
+          .reverseChain()
+          .reverseChain()
+          .addLink("8.963")
           .addLink(22)
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .addLink(true)
           .finishChain(),
-        '( 22 )~~( 8.963 )~~( 3.14 )~~( true )',
+        "( 22 )~~( 8.963 )~~( 3.14 )~~( true )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1372,14 +1372,14 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(false)
           .addLink(333)
-          .addLink('GHI')
+          .addLink("GHI")
           .addLink(333)
           .reverseChain()
           .reverseChain()
           .addLink(false)
           .reverseChain()
           .finishChain(),
-        '( false )~~( 333 )~~( GHI )~~( 333 )~~( false )',
+        "( false )~~( 333 )~~( GHI )~~( 333 )~~( false )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1394,7 +1394,7 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(1.233)
           .finishChain(),
-        '( true )~~( 1.233 )~~( 1 )~~( 22 )~~( 1.233 )',
+        "( true )~~( 1.233 )~~( 1 )~~( 22 )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1402,14 +1402,14 @@ describe('Make chain!', () => {
           .reverseChain()
           .addLink(3.14)
           .addLink(3.14)
-          .addLink('DEF')
-          .addLink('ABC')
-          .addLink('8.963')
+          .addLink("DEF")
+          .addLink("ABC")
+          .addLink("8.963")
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( 8.963 )~~( ABC )~~( DEF )~~( 3.14 )~~( 3.14 )',
+        "( 8.963 )~~( ABC )~~( DEF )~~( 3.14 )~~( 3.14 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1424,22 +1424,22 @@ describe('Make chain!', () => {
           .addLink(false)
           .addLink(1.233)
           .finishChain(),
-        '( NaN )~~( null )~~( 1.233 )~~( true )~~( false )~~( 1.233 )',
+        "( NaN )~~( null )~~( 1.233 )~~( true )~~( false )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .addLink(Infinity)
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(22)
           .addLink(NaN)
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(Infinity)
           .addLink(1.233)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .finishChain(),
-        '( NaN )~~( 22 )~~( DEF )~~( Infinity )~~( DEF )~~( Infinity )~~( 1.233 )~~( [object Object] )',
+        "( NaN )~~( 22 )~~( DEF )~~( Infinity )~~( DEF )~~( Infinity )~~( 1.233 )~~( [object Object] )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1451,10 +1451,10 @@ describe('Make chain!', () => {
           .addLink(true)
           .addLink(null)
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(false)
           .finishChain(),
-        '( null )~~( true )~~( 1.233 )~~( DEF )~~( false )',
+        "( null )~~( true )~~( 1.233 )~~( DEF )~~( false )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1469,7 +1469,7 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( true )',
+        "( true )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1478,13 +1478,13 @@ describe('Make chain!', () => {
           .addLink(true)
           .reverseChain()
           .addLink(Infinity)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .addLink(null)
           .reverseChain()
           .addLink(Infinity)
-          .addLink('8.963')
+          .addLink("8.963")
           .finishChain(),
-        '( null )~~( [object Object] )~~( Infinity )~~( Infinity )~~( true )~~( Infinity )~~( 8.963 )',
+        "( null )~~( [object Object] )~~( Infinity )~~( Infinity )~~( true )~~( Infinity )~~( 8.963 )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1493,13 +1493,13 @@ describe('Make chain!', () => {
           .addLink(0)
           .addLink(true)
           .reverseChain()
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( true )~~( 0 )~~( ABC )',
+        "( true )~~( 0 )~~( ABC )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1514,11 +1514,11 @@ describe('Make chain!', () => {
           .addLink(333)
           .reverseChain()
           .finishChain(),
-        '( 333 )~~( 1.233 )~~( true )~~( null )~~( false )',
+        "( 333 )~~( 1.233 )~~( true )~~( null )~~( false )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .reverseChain()
           .addLink(true)
@@ -1526,28 +1526,28 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .reverseChain()
-          .addLink('8.963')
+          .addLink("8.963")
           .reverseChain()
           .finishChain(),
-        '( 8.963 )~~( [object Object] )~~( true )~~( Infinity )',
+        "( 8.963 )~~( [object Object] )~~( true )~~( Infinity )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .addLink(NaN)
           .reverseChain()
           .addLink(333)
           .reverseChain()
-          .addLink('GHI')
-          .addLink('ABC')
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink("GHI")
+          .addLink("ABC")
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .finishChain(),
-        '( 333 )~~( DEF )~~( NaN )~~( GHI )~~( ABC )~~( [object Object] )',
+        "( 333 )~~( DEF )~~( NaN )~~( GHI )~~( ABC )~~( [object Object] )"
       );
     });
-    test('removeLinks works correctly', () => {
+    test("removeLinks works correctly", () => {
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
@@ -1562,24 +1562,24 @@ describe('Make chain!', () => {
           .removeLink(3)
           .addLink(1.233)
           .finishChain(),
-        '( NaN )~~( null )~~( true )~~( false )~~( 1.233 )',
+        "( NaN )~~( null )~~( true )~~( false )~~( 1.233 )"
       );
       assert.deepStrictEqual(
         chainMaker
           .reverseChain()
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .reverseChain()
           .reverseChain()
           .addLink(Infinity)
           .addLink(false)
           .addLink(0)
-          .addLink('8.963')
+          .addLink("8.963")
           .removeLink(2)
           .removeLink(1)
           .reverseChain()
           .finishChain(),
-        '( 8.963 )~~( 0 )~~( false )',
+        "( 8.963 )~~( 0 )~~( false )"
       );
       assert.deepStrictEqual(
         chainMaker
@@ -1591,20 +1591,20 @@ describe('Make chain!', () => {
           .removeLink(2)
           .reverseChain()
           .reverseChain()
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .finishChain(),
-        '( [object Object] )~~( 22 )~~( null )~~( DEF )',
+        "( [object Object] )~~( 22 )~~( null )~~( DEF )"
       );
       assert.deepStrictEqual(
         chainMaker
           .addLink(3.14)
           .addLink(1)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .removeLink(1)
-          .addLink('DEF')
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink("DEF")
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .removeLink(1)
           .addLink(true)
           .addLink(false)
@@ -1612,23 +1612,23 @@ describe('Make chain!', () => {
           .reverseChain()
           .reverseChain()
           .finishChain(),
-        '( [object Object] )~~( DEF )~~( [object Object] )~~( true )~~( false )~~( 333 )',
+        "( [object Object] )~~( DEF )~~( [object Object] )~~( true )~~( false )~~( 333 )"
       );
       assert.deepStrictEqual(
         chainMaker
-          .addLink('ABC')
+          .addLink("ABC")
           .reverseChain()
           .reverseChain()
-          .addLink('DEF')
+          .addLink("DEF")
           .removeLink(1)
-          .addLink({ 0: 'first', 1: 'second', length: 2 })
+          .addLink({ 0: "first", 1: "second", length: 2 })
           .reverseChain()
           .addLink(1.233)
           .addLink(1.233)
           .reverseChain()
-          .addLink('ABC')
+          .addLink("ABC")
           .finishChain(),
-        '( 1.233 )~~( 1.233 )~~( DEF )~~( [object Object] )~~( ABC )',
+        "( 1.233 )~~( 1.233 )~~( DEF )~~( [object Object] )~~( ABC )"
       );
     });
   });
